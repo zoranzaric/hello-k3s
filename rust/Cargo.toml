@@ -1,0 +1,9 @@
+[package]
+name = "hello-k3s"
+version = "0.1.0"
+authors = ["Zoran Zaric <zz@zoranzaric.de>"]
+edition = "2018"
+
+[dependencies]
+hyper = "0.13"
+tokio = { version = "0.2", features = ["full"] }

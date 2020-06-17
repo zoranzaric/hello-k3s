@@ -1,0 +1,36 @@
+<html>
+<head><title>K3S!</title>
+  <style>
+    html {
+      font-size: 62.5%;
+    }
+    body {
+      font-family: sans-serif;
+      background-color: midnightblue;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+    }
+    div {
+      text-align: center;
+      font-size: 8rem;
+      text-shadow: 3px 3px 4px dimgrey;
+    }
+    div.smaller {
+      text-align: center;
+      font-size: 4rem;
+      text-shadow: 3px 3px 4px dimgrey;
+      padding-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div>Hello from k3s.zorzar.de!</div>
+  <div class="smaller">(this is served by a <a href="https://www.nginx.com/">nginx</a> from a <a href="https://kubernetes.io/docs/concepts/configuration/configmap/">ConfigMap</a>)</div>
+  <div class="smaller">There's also a <a href="https://www.rust-lang.org/">Rust</a> endpoint at <a href="/rust">/rust</a> and a <a href="https://golang.org/">Go</a> endpoint at <a href="/go">/go</a>.</div>
+  <div class="smaller">The code is available on GitHub <a href="https://github.com/zoranzaric/hello-k3s">zoranzaric/hello-k3s</a></div>
+</body>
+</html>
+

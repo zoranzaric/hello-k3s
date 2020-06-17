@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-k3s-rust
+  labels:
+    app: hello-k3s-rust
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-k3s-rust
+  template:
+    metadata:
+      labels:
+        app: hello-k3s-rust
+    spec:
+      containers:
+      - name: hello-k3s-rust
+        image: docker.zaric.eu/zoranzaric/hello-k3s:rust
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-k3s-rust-service
+spec:
+  selector:
+    app: hello-k3s-rust
+  ports:
+    - protocol: TCP
+      port: 3000
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hello-k3s-rust-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: k3s.zorzar.de
+    http:
+      paths:
+      - path: /rust
+        backend:
+          serviceName: hello-k3s-rust-service
+          servicePort: 3000
+  tls:
+  - hosts:
+    - k3s.zorzar.de
+    secretName: k3s-zorzar-de-tls
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-k3s-go
+  labels:
+    app: hello-k3s-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-k3s-go
+  template:
+    metadata:
+      labels:
+        app: hello-k3s-go
+    spec:
+      containers:
+      - name: hello-k3s-go
+        image: docker.zaric.eu/zoranzaric/hello-k3s:go
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-k3s-go-service
+spec:
+  selector:
+    app: hello-k3s-go
+  ports:
+    - protocol: TCP
+      port: 3000
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: hello-k3s-go-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: k3s.zorzar.de
+    http:
+      paths:
+      - path: /go
+        backend:
+          serviceName: hello-k3s-go-service
+          servicePort: 3000
+  tls:
+  - hosts:
+    - k3s.zorzar.de
+    secretName: k3s-zorzar-de-tls
+
